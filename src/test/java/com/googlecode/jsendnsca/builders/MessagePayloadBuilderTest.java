@@ -16,12 +16,12 @@
  */
 package com.googlecode.jsendnsca.builders;
 
-import static junit.framework.Assert.*;
-
-import org.junit.Test;
-
 import com.googlecode.jsendnsca.Level;
 import com.googlecode.jsendnsca.MessagePayload;
+import com.googlecode.jsendnsca.PerfDatum;
+import org.junit.Test;
+
+import static junit.framework.Assert.assertEquals;
 
 /**
  * @version $Revision$
@@ -42,6 +42,24 @@ public class MessagePayloadBuilderTest {
         assertEquals("test service", messagePayload.getServiceName());
         assertEquals("test message", messagePayload.getMessage());
     }
+
+    @Test
+    public void shouldConstructNewMessagePayloadWithPerfData() throws Exception {
+        final MessagePayload messagePayload = new MessagePayloadBuilder()
+                .withHostname("localhost")
+                .withLevel(Level.CRITICAL)
+                .withServiceName("test service")
+                .withMessage("test message")
+                .withPerfData(new PerfDatum("queue_count", 12))
+                .withPerfData(new PerfDatum("queue_capacity", 32, 50, 100, 1, 45))
+                .create();
+
+        assertEquals("localhost", messagePayload.getHostname());
+        assertEquals(Level.CRITICAL, messagePayload.getLevel());
+        assertEquals("test service", messagePayload.getServiceName());
+        assertEquals("test message | queue_count=12 | queue_capacity=32;50;100;1;45", messagePayload.getMessage());
+    }
+
 
     @Test
     public void shouldConstructTwoNewMessagePayload() throws Exception {

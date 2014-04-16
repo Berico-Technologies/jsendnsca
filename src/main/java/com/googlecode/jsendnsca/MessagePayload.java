@@ -22,6 +22,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.apache.commons.lang.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
@@ -42,6 +45,7 @@ public class MessagePayload implements Serializable {
     private Level level = Level.UNKNOWN;
     private String serviceName = DEFAULT_SERVICENAME;
     private String message = StringUtils.EMPTY;
+    private List<PerfDatum> perfData = new ArrayList<PerfDatum>();
 
     /**
      * Construct a new {@link MessagePayload} with hostname being the short
@@ -72,6 +76,31 @@ public class MessagePayload implements Serializable {
         this.level = level;
         this.serviceName = serviceName;
         this.message = message;
+    }
+
+    /**
+     * Construct a new {@link MessagePayload}
+     *
+     * @param hostname
+     *            the hostname to be sent in this passive check
+     * @param level
+     *            the level
+     * @param serviceName
+     *            the service name
+     * @param message
+     *            the message
+     * @param perfData
+     *            An array of performance data related to the check.
+     */
+    public MessagePayload(String hostname, Level level, String serviceName, String message, PerfDatum... perfData) {
+        Validate.notEmpty(hostname, "hostname cannot be null or an empty String");
+        Validate.notEmpty(serviceName, "serviceName cannot be null or an empty String");
+
+        this.hostname = hostname;
+        this.level = level;
+        this.serviceName = serviceName;
+        this.message = message;
+        this.perfData.addAll(Arrays.asList(perfData));
     }
 
     /**
@@ -174,12 +203,57 @@ public class MessagePayload implements Serializable {
     }
 
     /**
+     * Performance Data Related to the check.
+     * @return List of Performance data.
+     */
+    public List<PerfDatum> getPerfData(){
+
+        return this.perfData;
+    }
+
+    /**
+     * Set the list of performance data.
+     * @param perfData
+     */
+    public void setPerfData(List<PerfDatum> perfData){
+
+        this.perfData.clear();
+        this.perfData.addAll(perfData);
+    }
+
+    /**
+     * Add PerfData to the Message
+     * @param perfData Performance Data
+     */
+    public void addPerfData(PerfDatum... perfData){
+
+        this.perfData.addAll(Arrays.asList(perfData));
+    }
+
+    /**
+     * Get the Base Message (without PerfData).
+     * @return Base Message.
+     */
+    public String getBaseMessage(){
+
+        return this.message;
+    }
+
+    /**
      * The message to send in this passive check
      *
      * @return the message, default is an empty string
      */
     public String getMessage() {
-        return message;
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(message);
+
+        for (PerfDatum datum : perfData)
+            sb.append(" | ").append(datum.toString());
+
+        return sb.toString();
     }
 
     /**
@@ -242,6 +316,7 @@ public class MessagePayload implements Serializable {
             .append("hostname", hostname)
             .append("serviceName", serviceName)
             .append("message", message)
+            .append("perfData", perfData)
             .toString();
     }
 

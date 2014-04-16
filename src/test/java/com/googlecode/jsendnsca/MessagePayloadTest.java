@@ -13,19 +13,17 @@
  */
 package com.googlecode.jsendnsca;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 import org.apache.commons.lang.StringUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.googlecode.jsendnsca.Level;
-import com.googlecode.jsendnsca.MessagePayload;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.startsWith;
+import static org.junit.Assert.*;
 
 public class MessagePayloadTest {
 
@@ -79,6 +77,23 @@ public class MessagePayloadTest {
         assertEquals(Level.OK, messagePayload.getLevel());
         assertEquals("test service", messagePayload.getServiceName());
         assertEquals("test message", messagePayload.getMessage());
+        assertEquals("test message", messagePayload.getBaseMessage());
+    }
+
+    @Test
+    public void shouldConstructNewMessagePayloadWithPerfData() throws Exception {
+
+        PerfDatum p1 = new PerfDatum("t1", 123, PerfDatum.UOM.Seconds);
+        PerfDatum p2 = new PerfDatum("t2", 43, PerfDatum.UOM.Percentage);
+        PerfDatum p3 = new PerfDatum("t3", 43, PerfDatum.UOM.Bytes, 54, 100, 1, 49);
+
+        final MessagePayload messagePayload = new MessagePayload("localhost", Level.OK, "test service", "test message", p1, p2, p3);
+
+        assertEquals("localhost", messagePayload.getHostname());
+        assertEquals(Level.OK, messagePayload.getLevel());
+        assertEquals("test service", messagePayload.getServiceName());
+        assertEquals("test message", messagePayload.getBaseMessage());
+        assertEquals("test message | t1=123s | t2=43% | t3=43B;54;100;1;49", messagePayload.getMessage());
     }
 
     @Test

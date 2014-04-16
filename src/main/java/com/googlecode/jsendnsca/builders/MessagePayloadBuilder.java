@@ -13,10 +13,11 @@
  */
 package com.googlecode.jsendnsca.builders;
 
-import java.net.UnknownHostException;
-
 import com.googlecode.jsendnsca.Level;
 import com.googlecode.jsendnsca.MessagePayload;
+import com.googlecode.jsendnsca.PerfDatum;
+
+import java.net.UnknownHostException;
 
 /**
  * Used to construct a {@link MessagePayload} using a builder pattern e.g.
@@ -128,6 +129,20 @@ public class MessagePayloadBuilder {
      */
     public MessagePayloadBuilder withMessage(String message) {
         payload.setMessage(message);
+        return this;
+    }
+
+    /**
+     * Set the performance data associated with this Message.
+     * This may be called multiple times, adding new performance data
+     * to the internal list.
+     * @param perfData
+     *            the performance data
+     * @return the {@link com.googlecode.jsendnsca.builders.MessagePayloadBuilder}
+     */
+    public MessagePayloadBuilder withPerfData(PerfDatum... perfData){
+
+        payload.addPerfData(perfData);
         return this;
     }
 }
