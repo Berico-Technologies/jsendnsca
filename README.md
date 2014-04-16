@@ -1,5 +1,7 @@
 # jsendnsca
 
+[![Build Status](https://travis-ci.org/Berico-Technologies/jsendnsca.svg)](https://travis-ci.org/Berico-Technologies/jsendnsca)
+
 A fork of the [jsendnsca](https://code.google.com/p/jsendnsca/) library on Google Code.
 
 ```
