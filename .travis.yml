@@ -3,8 +3,4 @@ env:
   global:
   - secure: MbSFriRoiskY3uzS0va+5Z+/SXSjc/YPMi5CeNOOkudNPn768xBCM7OgWPD4ZYqTRgMW9g70x64GCBk8oZfsfnTqyEheJpA2RiQB5KhEryDNstFXRtxtao+oOEenKsU2AcADX143GeCo6JZZ2+Ba3tF0+9LommnVLzX0llU1+/8=
   - secure: mAtXmbCoYeKopcC3tlW3xNNIfWuhyabvRKEWUpkbVVXja17/Hal+99zjRIUUH0+25nbjZgdyl1a3o3l8zGnDJstV7Gp33Sz80dpnCVsBB+r4MlvRvddksDapzMJ4igRJangh0+BiKRpP68yaEmDl3LcPRUHAiphOkgwihQqax5s=
-jdk:
-- oraclejdk7
-- openjdk6
-- openjdk7
 script: mvn deploy --settings settings.xml
