@@ -8,7 +8,7 @@ A fork of the [jsendnsca](https://code.google.com/p/jsendnsca/) library on Googl
 <dependency>
     <groupId>fork.com.googlecode.jsendnsca</groupId>
     <artifactId>jsendnsca</artifactId>
-    <version>2.2</version>
+    <version>2.2.1</version>
 </dependency>
 
 
