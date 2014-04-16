@@ -1,10 +1,10 @@
 language: java
 env:
   global:
-    - secure: WcN3KAKL1LYM9Dt1pXXMNIklg43fhDaYUxurZhy85ApScnyemNMSftuRBcvS1FLNDeuM1w9kDi/dkP1BEl5XAWlORo2SqPe6vB68xa6gqzxyPpy+vKdp2C7SeKJDkxwW/y32wgzNdkcwWuO6secm2qa6vpyXcxcd+Y8ofyZlpUo=
-    - secure: VwPzYMLNY6BPMv8SjPBnoNP/5WCM4DSh1TMcxEkTmyke5ejaPRyp+Hj8hUkxqEKCwQa5ts0TeULXV8TA4kF/NTPn+HEQgFQYmKDFMbdFMTpiX5tU+8eNw2rckh8A1xpB2LgyxeO44ksAznBswSCmwc9jRsvXPrsP0Bo8nB7nC+0=
+  - secure: MbSFriRoiskY3uzS0va+5Z+/SXSjc/YPMi5CeNOOkudNPn768xBCM7OgWPD4ZYqTRgMW9g70x64GCBk8oZfsfnTqyEheJpA2RiQB5KhEryDNstFXRtxtao+oOEenKsU2AcADX143GeCo6JZZ2+Ba3tF0+9LommnVLzX0llU1+/8=
+  - secure: mAtXmbCoYeKopcC3tlW3xNNIfWuhyabvRKEWUpkbVVXja17/Hal+99zjRIUUH0+25nbjZgdyl1a3o3l8zGnDJstV7Gp33Sz80dpnCVsBB+r4MlvRvddksDapzMJ4igRJangh0+BiKRpP68yaEmDl3LcPRUHAiphOkgwihQqax5s=
 jdk:
-  - oraclejdk7
-  - openjdk6
-  - openjdk7
-script: "mvn deploy --settings settings.xml"
+- oraclejdk7
+- openjdk6
+- openjdk7
+script: mvn deploy --settings settings.xml
